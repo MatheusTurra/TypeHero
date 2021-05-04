@@ -1,0 +1,6 @@
+{{text}}
+
+<form [formGroup]="inputData">
+    {{inputData.value.inputText}}
+    <input formControlName="inputText" type="text" name="inputText" (keyup)="testeTexto(inputData.value.inputText)">
+</form>
