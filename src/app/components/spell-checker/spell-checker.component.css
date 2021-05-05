@@ -1,0 +1,16 @@
+#text-container {
+    border: 1px solid gold;
+}
+.text-word {
+    /* border: 1px solid red; */
+    margin-left: 5px;
+    display: inline-block;
+}
+
+.current {
+    border: 1px solid black;
+}
+
+.correct {
+    color: green;
+}

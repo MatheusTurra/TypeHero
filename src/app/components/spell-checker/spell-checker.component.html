@@ -1,6 +1,17 @@
-{{text}}
+<!-- <div [ngClass]="{'css-class-1':varA === varB, 'css-class-2': varA !== varB}"> -->
+
+<div id="text-container">
+    <span class="text-word" *ngFor="let word of splittedText; let i = index">
+        <span #testWord [ngClass]="correct" [ngClass]="{'current': i === phraseIndex}">
+            {{splittedText[i]}}
+        </span>
+    </span>    
+</div>
 
 <form [formGroup]="inputData">
-    {{inputData.value.inputText}}
-    <input formControlName="inputText" type="text" name="inputText" (keyup)="testeTexto(inputData.value.inputText)">
+    <input formControlName="inputText"
+        #spellCheckerInput 
+        type="text"
+        name="inputText" 
+        (keyup)="testeTexto(inputData.value.inputText, $event.key)">
 </form>
