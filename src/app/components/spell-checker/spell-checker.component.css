@@ -11,6 +11,10 @@
     border: 1px solid black;
 }
 
-.correct {
+.correctWord {
     color: green;
+}
+
+.incorrectWord {
+    color: red;
 }

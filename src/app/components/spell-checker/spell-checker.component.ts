@@ -1,5 +1,6 @@
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-spell-checker',
@@ -26,23 +27,47 @@ export class SpellCheckerComponent implements OnInit {
       inputText: []
     });
   } 
-
+  
   testeTexto(text, eventKey) { 
     if (text === null) text = "";
 
     let checkedWord = text;
-
+    // this.changeWordToCorrectClass();
     checkedWord = checkedWord.replace(/\s/g, "");
 
     if (eventKey === " " && checkedWord === this.splittedText[this.phraseIndex]) {
       this.phraseIndex++;
       this.spellCheckerValue.nativeElement.value = null;
+      
+      this.changeWordToCorrectClass();
+    } 
+    else if (eventKey === " " && checkedWord !== this.splittedText[this.phraseIndex]){
+      // TRANSFORMAR EM FUNÇÃO 
+      this.phraseIndex++;
+      this.spellCheckerValue.nativeElement.value = null;
 
       this.testWord.forEach(element => {
         if (element.nativeElement.className === "current") {
-          element.nativeElement.className = "correct";
+          element.nativeElement.className = "incorrectWord";
         }
-      })
+      });
     }
+  }
+
+  changeWordToCorrectClass() {
+    this.testWord.forEach(element => {
+      if (element.nativeElement.className === "current") {
+        element.nativeElement.className = "correctWord";
+
+      }
+    });
+  }
+
+  changeWordToIncorrectClass() {
+    this.testWord.forEach(element => {
+      if (element.nativeElement.className === "current") {
+        element.nativeElement.className = "incorrectWord";
+      }
+    })
   }
 }
