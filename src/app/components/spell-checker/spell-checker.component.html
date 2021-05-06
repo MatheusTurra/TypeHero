@@ -12,6 +12,14 @@
     <input formControlName="inputText"
         #spellCheckerInput 
         type="text"
+        autocomplete="off"
         name="inputText" 
         (keyup)="testeTexto(inputData.value.inputText, $event.key)">
 </form>
+{{inputData.value.inputText}}
+<br>
+
+<button (click)="timerStart()">
+    Start timer button
+</button>
+{{minutes}} : {{seconds}}
