@@ -1,6 +1,11 @@
 #text-container {
     border: 1px solid gold;
 }
+
+.timeEnded {
+    pointer-events: none;
+    background-color: brown;
+}
 .text-word {
     /* border: 1px solid red; */
     margin-left: 5px;

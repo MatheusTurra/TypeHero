@@ -17,9 +17,15 @@
         (keyup)="testeTexto(inputData.value.inputText, $event.key)">
 </form>
 {{inputData.value.inputText}}
+
 <br>
 
-<button (click)="timerStart()">
-    Start timer button
-</button>
+<br>
+
+Keystrokes {{keyStrokes}} / {{correctWords}} / {{incorrectWords}}
+<br>
+{{wpmResult}}
+<br>
+
+<button (click)="timerReset()">Reset timer</button>
 {{minutes}} : {{seconds}}
