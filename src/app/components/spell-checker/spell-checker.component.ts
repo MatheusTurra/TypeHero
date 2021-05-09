@@ -11,15 +11,16 @@ export class SpellCheckerComponent implements OnInit {
   @ViewChild("spellCheckerInput") spellCheckerValue;
   @ViewChildren("testWord") testWord: QueryList<any>;
 
-  public splittedText = "Beowulf, a young warrior in Geatland (southwestern Sweden), comes to the Scyldings' aid, bringing with him 14 of his finest men. Hrothgar once sheltered Beowulf's father during a deadly feud, and the mighty Geat hopes to return the favor while enhancing his own reputation and gaining treasure for his king, Hygelac. At a feast before nightfall of the first day of the visit, an obnoxious, drunken Scylding named Unferth insults Beowulf and claims that the Geat visitor once embarrassingly lost a swimming contest to a boyhood acquaintance na".split(" ")
+  public splittedText = "a picudo roludo gostoso Geatland (southwestern Sweden), comes to the Scyldings' aid, bringing with him 14 of his finest men. Hrothgar once sheltered Beowulf's father during a deadly feud, and the mighty Geat hopes to return the favor while enhancing his own reputation and gaining treasure for his king, Hygelac. At a feast before nightfall of the first day of the visit, an obnoxious, drunken Scylding named Unferth insults Beowulf and claims that the Geat visitor once embarrassingly lost a swimming contest to a boyhood acquaintance na".split(" ")
   // public splittedText = "this is a text for palestinha project".split(" ");
   public inputData:  FormGroup;
   
   public wpmResult: number
+  private bonus: boolean;
   
   public correctWords: number;
   public incorrectWords: number;
-  public keyStrokes: number;
+  public wordLength: number;
 
   public phraseIndex: number;
 
@@ -36,9 +37,12 @@ export class SpellCheckerComponent implements OnInit {
   ngOnInit(): void {
     this.phraseIndex = 0;
 
-    this.keyStrokes = 0;
+    this.wordLength = 0;
     this.correctWords = 0;
     this.incorrectWords = 0;
+
+    this.wpmResult = 0
+    this.bonus = true;
     
     this.minutes = 1;
     this.seconds = 0;
@@ -61,8 +65,8 @@ export class SpellCheckerComponent implements OnInit {
 
     if (eventKey === " " && checkedWord === this.splittedText[this.phraseIndex]) {
 
-      this.keyStrokes += this.splittedText[this.phraseIndex].length
-     
+      this.wordLength += this.splittedText[this.phraseIndex].length;
+
       this.phraseIndex++;
       this.correctWords++;
      
@@ -70,38 +74,27 @@ export class SpellCheckerComponent implements OnInit {
       
       this.changeWordToCorrectClass();
     } 
-    else if (eventKey === " " && checkedWord !== this.splittedText[this.phraseIndex]){
-      this.phraseIndex++;
-       this.spellCheckerValue.nativeElement.value = null;
-      this.incorrectWords++;
-
-      this.changeWordToIncorrectClass();
-    }
-  }
-
-  wordsPerMinuteCalc(minutes, seconds) {
-    let countdown = 60 - seconds
-
-    if (countdown !== 60) {
-
-      
-      if (seconds >= 45) {
-        seconds = Math.round(seconds / 60 * 1e2) / 1e2;
-
-      } else {
-        seconds = 1;
+    else if (eventKey === " " && checkedWord !== this.splittedText[this.phraseIndex]) {            
+      if (checkedWord !== "") {
+        this.phraseIndex++;
+        this.spellCheckerValue.nativeElement.value = null;
+        this.incorrectWords++;
+  
+        this.changeWordToIncorrectClass();
       }
 
-      this.wpmResult = Math.floor((this.keyStrokes /  5) / seconds);
-
+      this.spellCheckerValue.nativeElement.value = null;
     }
   }
-
+  
+  calculateWpm(totalWords) {
+    this.wpmResult = Math.floor((totalWords / 5) / 1);
+  }
+  
   changeWordToCorrectClass() {
     this.testWord.forEach(element => {
       if (element.nativeElement.className === "current") {
         element.nativeElement.className = "correctWord";
-
       }
     });
   }
@@ -123,8 +116,6 @@ export class SpellCheckerComponent implements OnInit {
      
       this.timerInterval = setInterval(() => {
 
-        this.wordsPerMinuteCalc(this.minutes, this.seconds);
-
         if (this.minutes === 0 && this.seconds === 0) {
           this.startWasClicked = true;
 
@@ -132,12 +123,12 @@ export class SpellCheckerComponent implements OnInit {
           this.spellCheckerValue.nativeElement.value = null;
           this.inputData.disable();
 
+          this.calculateWpm(this.wordLength);
           this.timerStop();
         }
-  
         
         if (this.seconds === 0) {
-          this.seconds = 60;
+          this.seconds = 59;
           this.minutes--;
   
           if (this.minutes < 0) {
