@@ -9,18 +9,19 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 export class SpellCheckerComponent implements OnInit {
   @ViewChild("spellCheckerInput") spellCheckerValue;
-  @ViewChildren("testWord") testWord: QueryList<any>;
+  @ViewChildren("testWord") testWord: any;
 
-  public splittedText = "a picudo roludo gostoso Geatland (southwestern Sweden), comes to the Scyldings' aid, bringing with him 14 of his finest men. Hrothgar once sheltered Beowulf's father during a deadly feud, and the mighty Geat hopes to return the favor while enhancing his own reputation and gaining treasure for his king, Hygelac. At a feast before nightfall of the first day of the visit, an obnoxious, drunken Scylding named Unferth insults Beowulf and claims that the Geat visitor once embarrassingly lost a swimming contest to a boyhood acquaintance na".split(" ")
+  public splittedText = "Beowulf, a young warrior in Geatland (southwestern Sweden), comes to the Scyldings' aid, bringing with him 14 of his finest men. Hrothgar once sheltered Beowulf's father during a deadly feud, and the mighty Geat hopes to return the favor while enhancing his own reputation and gaining treasure for his king, Hygelac. At a feast before nightfall of the first day of the visit, an obnoxious, drunken Scylding named Unferth insults Beowulf and claims that the Geat visitor once embarrassingly lost a swimming contest to a boyhood acquaintance na".split(" ")
   // public splittedText = "this is a text for palestinha project".split(" ");
   public inputData:  FormGroup;
   
   public wpmResult: number
-  private bonus: boolean;
+  private counter: number;
   
   public correctWords: number;
   public incorrectWords: number;
   public wordLength: number;
+  public isCorrect: boolean;
 
   public phraseIndex: number;
 
@@ -40,9 +41,10 @@ export class SpellCheckerComponent implements OnInit {
     this.wordLength = 0;
     this.correctWords = 0;
     this.incorrectWords = 0;
+    this.isCorrect = true;
 
     this.wpmResult = 0
-    this.bonus = true;
+    this.counter = 0;
     
     this.minutes = 1;
     this.seconds = 0;
@@ -60,8 +62,10 @@ export class SpellCheckerComponent implements OnInit {
     this.timerStart();
 
     let checkedWord = text;
+    
     checkedWord = checkedWord.replace(/\s/g, "");
 
+    this.realTimeSpellChecker(eventKey)
 
     if (eventKey === " " && checkedWord === this.splittedText[this.phraseIndex]) {
 
@@ -69,9 +73,10 @@ export class SpellCheckerComponent implements OnInit {
 
       this.phraseIndex++;
       this.correctWords++;
-     
       this.spellCheckerValue.nativeElement.value = null;
-      
+      this.counter = 0;
+      this.isCorrect = true;
+
       this.changeWordToCorrectClass();
     } 
     else if (eventKey === " " && checkedWord !== this.splittedText[this.phraseIndex]) {            
@@ -79,11 +84,32 @@ export class SpellCheckerComponent implements OnInit {
         this.phraseIndex++;
         this.spellCheckerValue.nativeElement.value = null;
         this.incorrectWords++;
-  
+        this.isCorrect = true;
+
         this.changeWordToIncorrectClass();
       }
 
       this.spellCheckerValue.nativeElement.value = null;
+    }
+  }
+
+  realTimeSpellChecker(event) {
+    let textSplitInLetters = this.splittedText[this.phraseIndex].split("");
+    let wordLenght = textSplitInLetters.length - 1;
+    let userInputKey = event.toLowerCase();
+    
+    if (this.counter > wordLenght) {
+      this.counter = wordLenght
+    };
+
+    if (event.length <= 1 && event !== " ") {
+      console.log("event", userInputKey, textSplitInLetters[this.counter].toLowerCase());
+      if (userInputKey === textSplitInLetters[this.counter].toLowerCase()) {
+        this.isCorrect = true;
+        this.counter++;
+      } else {
+        this.isCorrect = false;
+      }
     }
   }
   
@@ -101,12 +127,19 @@ export class SpellCheckerComponent implements OnInit {
 
   changeWordToIncorrectClass() {
     this.testWord.forEach(element => {
-      if (element.nativeElement.className === "current") {
-        element.nativeElement.className = "incorrectWord";
+      if (element.nativeElement.className === "incorrectSpell" || element.nativeElement.className === "current") {
+        element.nativeElement.className = "incorrect";
       }
-    })
+    });
   }
 
+  changeWordToCurrentClass() {
+    this.testWord.forEach(element => {
+      if (element.nativeElement.className === "current") {
+        element.nativeElement.className = "current";
+      }
+    });
+  }
  
   timerStart() {
     if(this.startWasClicked) {

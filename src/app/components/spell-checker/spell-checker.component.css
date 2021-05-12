@@ -14,12 +14,21 @@
 
 .current {
     border: 1px solid black;
+    color: black;
 }
 
+.text {
+    color: black
+}
+
+.incorrect {
+    color: red;
+}
 .correctWord {
     color: green;
 }
 
-.incorrectWord {
+.incorrectSpell {
+    border: 1px solid black;
     color: red;
 }

@@ -1,8 +1,10 @@
-<!-- <div [ngClass]="{'css-class-1':varA === varB, 'css-class-2': varA !== varB}"> -->
 
 <div id="text-container">
     <span class="text-word" *ngFor="let word of splittedText; let i = index">
-        <span #testWord  [ngClass]="{'current': i === phraseIndex}">
+        <span #testWord 
+            [ngClass]="{'current': i === phraseIndex,
+            'incorrectSpell': isCorrect === false && i === phraseIndex,
+            'current': isCorrect && i === phraseIndex}">
             {{splittedText[i]}}
         </span>
     </span>    
@@ -19,7 +21,6 @@
 {{inputData.value.inputText}}
 
 <br>
-
 <br>
 
 Keystrokes {{wordLength}} / {{correctWords}} / {{incorrectWords}}
@@ -29,3 +30,7 @@ Keystrokes {{wordLength}} / {{correctWords}} / {{incorrectWords}}
 
 <button (click)="timerReset()">Reset timer</button>
 {{minutes}} : {{seconds}}
+
+<p>
+     Teste de troca de classe css  {{isCorrect}}
+</p>
