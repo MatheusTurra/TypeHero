@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -11,7 +11,7 @@ export class SpellCheckerComponent implements OnInit {
   @ViewChild("spellCheckerInput") spellCheckerValue;
   @ViewChildren("testWord") testWord: any;
 
-  public splittedText = "Beowulf, a young warrior in Geatland (southwestern Sweden), comes to the Scyldings' aid, bringing with him 14 of his finest men. Hrothgar once sheltered Beowulf's father during a deadly feud, and the mighty Geat hopes to return the favor while enhancing his own reputation and gaining treasure for his king, Hygelac. At a feast before nightfall of the first day of the visit, an obnoxious, drunken Scylding named Unferth insults Beowulf and claims that the Geat visitor once embarrassingly lost a swimming contest to a boyhood acquaintance na".split(" ")
+  public splittedText = "Nascimento, capitão da Tropa de Elite do Rio de Janeiro, é designado para chefiar uma das equipes que tem como missão apaziguar o Morro do Turano. Ele precisa cumprir as ordens enquanto procura por um substituto para ficar em seu lugar. Em meio a um tiroteio, Nascimento e sua equipe resgatam Neto e Matias, dois aspirantes a oficiais da PM. Ansiosos para entrar em ação e impressionados com a eficiência de seus salvadores, os dois se candidatam ao curso de formação da Tropa de Elite.".split(" ")
   // public splittedText = "this is a text for palestinha project".split(" ");
   public inputData:  FormGroup;
   
@@ -96,21 +96,31 @@ export class SpellCheckerComponent implements OnInit {
   realTimeSpellChecker(event) {
     let textSplitInLetters = this.splittedText[this.phraseIndex].split("");
     let wordLenght = textSplitInLetters.length - 1;
-    let userInputKey = event.toLowerCase();
-    
-    if (this.counter > wordLenght) {
-      this.counter = wordLenght
-    };
+    let formattedText = this.formatText(textSplitInLetters[this.counter])
+    let formattedUserInput = this.formatText(event);
 
-    if (event.length <= 1 && event !== " ") {
-      console.log("event", userInputKey, textSplitInLetters[this.counter].toLowerCase());
-      if (userInputKey === textSplitInLetters[this.counter].toLowerCase()) {
+    if (this.counter > wordLenght) {
+       this.counter = wordLenght
+     };
+
+    // console.log(formattedText);
+    if (formattedUserInput.length <= 1 && event !== " ") {
+      if (formattedUserInput === formattedText) {
         this.isCorrect = true;
         this.counter++;
       } else {
         this.isCorrect = false;
       }
     }
+  }
+
+  formatText(text) {
+    if (text === undefined) text = "";
+    let textWhithoutAccent: String;
+
+    textWhithoutAccent = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+    return textWhithoutAccent;
   }
   
   calculateWpm(totalWords) {
@@ -119,6 +129,7 @@ export class SpellCheckerComponent implements OnInit {
   
   changeWordToCorrectClass() {
     this.testWord.forEach(element => {
+      // console.log(element.nativeElement.className)
       if (element.nativeElement.className === "current") {
         element.nativeElement.className = "correctWord";
       }
