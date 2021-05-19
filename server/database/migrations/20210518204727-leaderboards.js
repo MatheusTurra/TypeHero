@@ -2,26 +2,31 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Texts', {
+    await queryInterface.createTable('Leaderboards', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
       },
-      text: {
-        type: Sequelize.TEXT,
+      name: {
+        type: Sequelize.STRING,
         allowNull: false
       },
-      created_at: {
+      wordsPerMinute: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      createdAt: {
         type: Sequelize.DATE,
         allowNull: false
       },
-      updated_at: {
+      updatedAt: {
         type: Sequelize.DATE,
         allowNull: false
       }
     });
+     
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -29,7 +34,7 @@ module.exports = {
      * Add reverting commands here.
      *
      * Example:
-     * await queryInterface.dropTable('Texts');
+     * await queryInterface.dropTable('Leaderboards');
      */
   }
 };
