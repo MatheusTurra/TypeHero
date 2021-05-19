@@ -10,11 +10,15 @@ module.exports = {
     },
 
     async showLeaderboard(req, res) {
-        const leaderboard = await Leaderboard.findAll();
+        const leaderboard = await Leaderboard.findAll({
+            order: [
+                ["wordsPerMinute", "DESC"]
+            ]
+        });
 
         res.json({leaderboard});
     },
-
+    
     async removeFromLeaderboard(req, res) {
         const url = req.params;
 
@@ -24,7 +28,7 @@ module.exports = {
             }
         })
 
-        res.json({"valor da url": removed})
+        res.json({removed})
     },
 
     async updateFromLeaderboard(req, res) {
