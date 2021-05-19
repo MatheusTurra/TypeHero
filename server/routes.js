@@ -7,4 +7,7 @@ module.exports = (app) => {
 
     app.get("/leaderboards", leaderboardsController.showLeaderboard);
     app.post("/leaderboards", leaderboardsController.insertInLeaderboard);
+    app.delete("/leaderboards/:id", leaderboardsController.removeFromLeaderboard);
+    app.patch("/leaderboards/:id", leaderboardsController.updateFromLeaderboard);
+
 }

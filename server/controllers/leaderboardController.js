@@ -18,6 +18,25 @@ module.exports = {
     async removeFromLeaderboard(req, res) {
         const url = req.params;
 
-        res.json({"valor da url": url})
+        const removed = await Leaderboard.destroy({
+            where: {
+                id: url.id
+            }
+        })
+
+        res.json({"valor da url": removed})
+    },
+
+    async updateFromLeaderboard(req, res) {
+        const url = req.params;
+        const newName = req.body.name;
+
+        const updatedName = Leaderboard.update({name: newName}, {
+            where: {
+                id: url.id
+            }
+        });
+
+        res.json({});
     }
 }
