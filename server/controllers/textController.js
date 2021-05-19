@@ -2,20 +2,20 @@ const Text = require("../models/Text");
 
 module.exports = {
 
-    async getAllTexts(req, res) {
-        const allTexts = await Text.findAll();
-
+    async showTexts(req, res) {
+        const allTexts = await Text.findAll({
+            attributes: ["text"]
+        });
+        
         return res.json(allTexts);
     },
 
     async createText(req, res) {
-        const { textValue } = req.body;
+        const { text } = req.body;
 
-        const text = Text.build({"text": textValue});
-
-        await text.save();
+        const createdText = Text.create({"text": text});
         
-        return res.json(text);
+        return res.json({createdText});
     },
 
     async deleteText(req, res) {
