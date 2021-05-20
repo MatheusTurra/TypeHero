@@ -4,16 +4,16 @@ module.exports = {
 
     async showTexts(req, res) {
         const allTexts = await Text.findAll({
-            attributes: ["id", "text"]
+            attributes: ["id", "title", "text"]
         });
         
         return res.json(allTexts);
     },
 
     async createText(req, res) {
-        const { text } = req.body;
+        const { text, title } = req.body;
 
-        const createdText = Text.create({"text": text});
+        const createdText = Text.create({"text": text, "title": title});
         
         return res.json({createdText});
     },
