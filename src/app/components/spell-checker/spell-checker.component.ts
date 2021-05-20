@@ -64,7 +64,7 @@ export class SpellCheckerComponent implements OnInit {
     });
   }
   
-  testeTexto(text, eventKey) { 
+  spellChecker(text, eventKey) { 
     if (text === null) text = "";
 
     this.timerStart();
