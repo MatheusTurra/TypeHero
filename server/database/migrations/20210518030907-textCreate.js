@@ -9,6 +9,10 @@ module.exports = {
         autoIncrement: true,
         allowNull: false
       },
+      title: {
+        type: Sequelize.TEXT,
+        allowNull: false
+      },
       text: {
         type: Sequelize.TEXT,
         allowNull: false

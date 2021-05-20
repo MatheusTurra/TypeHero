@@ -12,8 +12,7 @@ export class SpellCheckerComponent implements OnInit {
   @ViewChild("spellCheckerInput") spellCheckerValue;
   @ViewChildren("testWord") testWord: any;
 
-  // public splittedText = "Nascimento, capitão da Tropa de Elite do Rio de Janeiro, é designado para chefiar uma das equipes que tem como missão apaziguar o Morro do Turano. Ele precisa cumprir as ordens enquanto procura por um substituto para ficar em seu lugar. Em meio a um tiroteio, Nascimento e sua equipe resgatam Neto e Matias, dois aspirantes a oficiais da PM. Ansiosos para entrar em ação e impressionados com a eficiência de seus salvadores, os dois se candidatam ao curso de formação da Tropa de Elite.".split(" ")
-  public splittedText;
+  public splittedText: any;
   public inputData:  FormGroup;
   
   public wpmResult: number
@@ -31,9 +30,8 @@ export class SpellCheckerComponent implements OnInit {
   public chronometer: number;
 
   private startWasClicked: Boolean;
-  private timerInterval;
-  public teste;
-
+  private timerInterval: any;
+  
 
   constructor(private formBuilder: FormBuilder, private getTextService: GetTextService) { }
 
@@ -139,7 +137,6 @@ export class SpellCheckerComponent implements OnInit {
   
   changeWordToCorrectClass() {
     this.testWord.forEach(element => {
-      // console.log(element.nativeElement.className)
       if (element.nativeElement.className === "current") {
         element.nativeElement.className = "correctWord";
       }
