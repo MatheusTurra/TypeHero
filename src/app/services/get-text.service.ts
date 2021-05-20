@@ -11,7 +11,7 @@ export class GetTextService {
 
   constructor(private http: HttpClient) { }
 
-  teste() {
+  getText() {
     return this.http.get(this.apiUrl + "text");
   }
 }
