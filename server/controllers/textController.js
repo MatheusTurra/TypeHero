@@ -4,7 +4,7 @@ module.exports = {
 
     async showTexts(req, res) {
         const allTexts = await Text.findAll({
-            attributes: ["text"]
+            attributes: ["id", "text"]
         });
         
         return res.json(allTexts);
