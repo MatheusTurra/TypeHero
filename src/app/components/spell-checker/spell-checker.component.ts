@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import  { GetTextService } from "../../services/get-text.service";
 
 @Component({
   selector: 'app-spell-checker',
@@ -11,8 +12,7 @@ export class SpellCheckerComponent implements OnInit {
   @ViewChild("spellCheckerInput") spellCheckerValue;
   @ViewChildren("testWord") testWord: any;
 
-  public splittedText = "Nascimento, capitão da Tropa de Elite do Rio de Janeiro, é designado para chefiar uma das equipes que tem como missão apaziguar o Morro do Turano. Ele precisa cumprir as ordens enquanto procura por um substituto para ficar em seu lugar. Em meio a um tiroteio, Nascimento e sua equipe resgatam Neto e Matias, dois aspirantes a oficiais da PM. Ansiosos para entrar em ação e impressionados com a eficiência de seus salvadores, os dois se candidatam ao curso de formação da Tropa de Elite.".split(" ")
-  // public splittedText = "this is a text for palestinha project".split(" ");
+  public splittedText: any;
   public inputData:  FormGroup;
   
   public wpmResult: number
@@ -30,12 +30,14 @@ export class SpellCheckerComponent implements OnInit {
   public chronometer: number;
 
   private startWasClicked: Boolean;
-  private timerInterval;
+  private timerInterval: any;
+  
 
-
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private getTextService: GetTextService) { }
 
   ngOnInit(): void {
+    this.splittedText = this.getApiText();
+
     this.phraseIndex = 0;
 
     this.wordLength = 0;
@@ -55,8 +57,14 @@ export class SpellCheckerComponent implements OnInit {
       inputText: []
     });
   } 
+
+  getApiText() {
+    this.getTextService.getText().subscribe( data => {
+      this.splittedText = data[0].text.split(" ");
+    });
+  }
   
-  testeTexto(text, eventKey) { 
+  spellChecker(text, eventKey) { 
     if (text === null) text = "";
 
     this.timerStart();
@@ -129,7 +137,6 @@ export class SpellCheckerComponent implements OnInit {
   
   changeWordToCorrectClass() {
     this.testWord.forEach(element => {
-      // console.log(element.nativeElement.className)
       if (element.nativeElement.className === "current") {
         element.nativeElement.className = "correctWord";
       }
