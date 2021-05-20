@@ -16,13 +16,12 @@
         type="text"
         autocomplete="off"
         name="inputText" 
-        (keyup)="testeTexto(inputData.value.inputText, $event.key)">
+        (keyup)="spellChecker(inputData.value.inputText, $event.key)">
 </form>
 {{inputData.value.inputText}}
 
 <br>
 <br>
-
 Keystrokes {{wordLength}} / {{correctWords}} / {{incorrectWords}}
 <br>
 {{wpmResult}}
