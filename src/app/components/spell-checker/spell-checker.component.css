@@ -1,5 +1,6 @@
 #text-container {
     border: 1px solid gold;
+    color: white;
 }
 
 .timeEnded {
@@ -14,11 +15,11 @@
 
 .current {
     border: 1px solid black;
-    color: black;
+    color: white;
 }
 
 .text {
-    color: blue
+    color: white
 }
 
 .incorrect {
