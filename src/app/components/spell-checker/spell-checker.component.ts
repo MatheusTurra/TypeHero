@@ -247,6 +247,8 @@ export class SpellCheckerComponent implements OnInit {
   }
 
   saveLeaderboard(name) {
-    this.getTextService.insertLeaderboard(name, this.wpmResult);
+    if(name.length > 0) {
+      this.getTextService.insertLeaderboard(name, this.wpmResult);
+    }
   }
 }

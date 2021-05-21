@@ -7,11 +7,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpellCheckerComponent } from './components/spell-checker/spell-checker.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SpellCheckerComponent
+    SpellCheckerComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
