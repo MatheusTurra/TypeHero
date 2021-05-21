@@ -33,6 +33,8 @@ export class SpellCheckerComponent implements OnInit {
   public chronometer: number;
   public testIsOver: boolean;
 
+  public gameIsReseted: boolean;
+
   private startWasClicked: Boolean;
   private timerInterval: any;
   
@@ -55,6 +57,7 @@ export class SpellCheckerComponent implements OnInit {
     this.minutes = 1;
     this.seconds = 0;
     this.testIsOver = false;
+    this.gameIsReseted = false;
 
     this.startWasClicked = true;
 
@@ -84,12 +87,14 @@ export class SpellCheckerComponent implements OnInit {
   
   spellChecker(text, eventKey) { 
     if (text === null) text = "";
-
-    this.timerStart();
+    
     let checkedWord = text;
     
+    this.gameIsReseted = false;
+
     checkedWord = checkedWord.replace(/\s/g, "");
 
+    this.timerStart();
     this.realTimeSpellChecker(eventKey)
 
     if (eventKey === " " && checkedWord === this.splittedText[this.phraseIndex]) {
@@ -224,6 +229,21 @@ export class SpellCheckerComponent implements OnInit {
 
   timerStop() {
     clearInterval(this.timerInterval);
+  }
+
+  gameReset() {
+    this.wpmResult = 0;
+    this.incorrectWords = 0;
+    this.correctWords = 0;
+    this.phraseIndex = 0;
+    this.wordLength = 0;
+
+    this.splittedText = []
+    this.getApiText();
+    this.timerReset();
+
+    this.gameIsReseted = true;
+    this.testIsOver = false;
   }
 
   saveLeaderboard(name) {
