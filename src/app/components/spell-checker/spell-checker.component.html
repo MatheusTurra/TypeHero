@@ -1,7 +1,7 @@
 
 <div id="text-container">
     <span class="text-word" *ngFor="let word of splittedText; let i = index">
-        <span #testWord id="display-text"
+        <span #testWord
             [ngClass]="{'current': i === phraseIndex,
             'incorrectSpell': isCorrect === false && i === phraseIndex,
             'current': isCorrect && i === phraseIndex}">
