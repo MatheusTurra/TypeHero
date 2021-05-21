@@ -10,15 +10,15 @@
     </span>    
 </div>
 
-<form [formGroup]="inputData">
+<form [formGroup]="inputForm">
     <input formControlName="inputText"
         #spellCheckerInput 
         type="text"
         autocomplete="off"
         name="inputText" 
-        (keyup)="spellChecker(inputData.value.inputText, $event.key)">
+        (keyup)="spellChecker(inputForm.value.inputText, $event.key)">
 </form>
-{{inputData.value.inputText}}
+{{inputForm.value.inputText}}
 
 <br>
 <br>
@@ -30,6 +30,13 @@ Keystrokes {{wordLength}} / {{correctWords}} / {{incorrectWords}}
 <button (click)="timerReset()">Reset timer</button>
 {{minutes}} : {{seconds}}
 
-<p>
-     Teste de troca de classe css  {{isCorrect}}
-</p>
+<div *ngIf="testIsOver === true">
+    <form [formGroup]="leaderboardForm">
+        <p> Salvar recorde </p>
+        <input formControlName="name" type="text" required> 
+        <button type="submit" (click)="saveLeaderboard(leaderboardForm.value.name)">Salvar</button>
+    </form>
+    <div *ngFor="let records of leaderboard">
+        {{records.name}} {{records.wordsPerMinute}}
+    </div>
+</div>
