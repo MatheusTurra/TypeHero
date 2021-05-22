@@ -93,8 +93,9 @@
 }
 
 .current {
-    border: 1px solid black;
+    background-color: rgba(255, 255, 255, 0.138);
     color: white;
+    width: auto;
 }
 
 .text {
@@ -102,14 +103,14 @@
 }
 
 .incorrect {
-    color: red;
+    color: #e71d36;
 }
 .correctWord {
-    color: green;
+    color: #0cce6b;
 }
 
 .incorrectSpell {
-    border: 1px solid black;
-    color: red;
+    background-color: rgba(255, 255, 255, 0.138);
+    color: #e71d36;
 }
 
