@@ -1,34 +1,51 @@
 
-<div id="text-container">
-    <span class="text-word" *ngFor="let word of splittedText; let i = index">
-        <span #testWord
-            [ngClass]="{'current': i === phraseIndex,
-            'incorrectSpell': isCorrect === false && i === phraseIndex,
-            'current': isCorrect && i === phraseIndex}">
-            {{splittedText[i]}}
-        </span>
-    </span>    
+
+<div id="main" class="container">
+    <div class="row" id="text-container">
+        <span class="text-word" *ngFor="let word of splittedText; let i = index">
+            <span #testWord
+                [ngClass]="{'current': i === phraseIndex,
+                'incorrectSpell': isCorrect === false && i === phraseIndex,
+                'current': isCorrect && i === phraseIndex}">
+                {{splittedText[i]}}
+            </span>
+        </span>    
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6 mr-3">
+            <form [formGroup]="inputForm">
+                <input class="" id="user-input" 
+                    formControlName="inputText"
+                    #spellCheckerInput 
+                    type="input"
+                    autocomplete="off"
+                    name="inputText" 
+                    (keyup)="spellChecker(inputForm.value.inputText, $event.key)">
+            </form>
+        </div>
+        <div id="realtime-feedback" class="col-md-2 mr-3">
+            <!-- Keystrokes {{wordLength}} / {{correctWords}} / {{incorrectWords}} -->
+            <div id="words">
+                <p>Letras certas : {{wordLength}}</p>
+            </div>            
+        </div>
+        <div id="timer" class="col-md-1">
+            <div class="text-center">
+                {{minutes}} : {{seconds}}                    
+            </div>
+        </div>
+
+        <div class="col-md-1" id="reset" >
+            <button class="mb-5 btn" (click)="gameReset()">
+                <img id="reset-icon" src="../../../assets/reset.svg"/>
+            </button>
+        </div>
+    </div>
+    {{inputForm.value.inputText}}    {{wpmResult}}        
+    <br>
+    <br>
+    <br>
 </div>
-
-<form [formGroup]="inputForm">
-    <input formControlName="inputText"
-        #spellCheckerInput 
-        type="text"
-        autocomplete="off"
-        name="inputText" 
-        (keyup)="spellChecker(inputForm.value.inputText, $event.key)">
-</form>
-{{inputForm.value.inputText}}
-
-<br>
-<br>
-Keystrokes {{wordLength}} / {{correctWords}} / {{incorrectWords}}
-<br>
-{{wpmResult}}
-<br>
-
-<button (click)="gameReset()">Reset timer</button>
-{{minutes}} : {{seconds}}
 
 <div *ngIf="testIsOver === true">
     <form [formGroup]="leaderboardForm">
