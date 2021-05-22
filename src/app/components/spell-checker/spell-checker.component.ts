@@ -34,7 +34,8 @@ export class SpellCheckerComponent implements OnInit {
   public testIsOver: boolean;
 
   public gameIsReseted: boolean;
-
+  
+  private leaderboardWasSaved: boolean;
   private startWasClicked: Boolean;
   private timerInterval: any;
   
@@ -60,7 +61,7 @@ export class SpellCheckerComponent implements OnInit {
     this.gameIsReseted = false;
 
     this.startWasClicked = true;
-
+    this.leaderboardWasSaved = false;
     this.showAllLeaderboards();
 
     this.inputForm = this.formBuilder.group({
@@ -244,11 +245,14 @@ export class SpellCheckerComponent implements OnInit {
 
     this.gameIsReseted = true;
     this.testIsOver = false;
+    this.leaderboardWasSaved = false;
   }
 
   saveLeaderboard(name) {
-    if(name.length > 0) {
+    if(name.length > 0 && !this.leaderboardWasSaved) {
       this.getTextService.insertLeaderboard(name, this.wpmResult);
+      this.showAllLeaderboards();
+      this.leaderboardWasSaved = true;
     }
   }
 }

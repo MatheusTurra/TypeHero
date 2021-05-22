@@ -3,7 +3,7 @@
 }
 
 #text-container {
-    border: 3px solid #131515;
+    border: 1px solid #131515;
     background-color: rgba(131, 131, 131, 0.07);
     color: #f2f2f2;
     font-size: 20px;
@@ -67,6 +67,18 @@
 
 #reset-icon {
     width: 30px;
+}
+
+.list-report li {
+    background-color: rgba(131, 131, 131, 0.138);
+}
+
+.table {
+    color: white;
+}
+
+#end-report {
+    width: 86.5%;
 }
 
 

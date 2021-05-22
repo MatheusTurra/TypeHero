@@ -41,19 +41,42 @@
             </button>
         </div>
     </div>
-    {{inputForm.value.inputText}}    {{wpmResult}}        
-    <br>
-    <br>
-    <br>
-</div>
-
-<div *ngIf="testIsOver === true">
-    <form [formGroup]="leaderboardForm">
-        <p> Salvar recorde </p>
-        <input formControlName="name" type="text" required> 
-        <button type="submit" (click)="saveLeaderboard(leaderboardForm.value.name)">Salvar</button>
-    </form>
-    <div *ngFor="let records of leaderboard">
-        {{records.name}} {{records.wordsPerMinute}}
+    <div id="end-report" class="mt-4 mb-5 container row">
+        <div  *ngIf="testIsOver === true" class="container col-md-6">
+            <h4 class="text-center">Você digitou {{wpmResult}} palavras por segundo</h4>
+            <ul class="list-unstyled list-group list-report">
+                <li class="list-group-item">Palavras certas {{correctWords}}</li>
+                <li class="list-group-item">Palavras incorretas {{incorrectWords}}</li>
+                <li class="list-group-item">Letras corretas digitadas {{wordLength}} </li>
+            </ul>
+            <div class="mt-4 form-group">
+                <h5>Deseja salvar o seu recorde?</h5>
+                <form class="mt-4" [formGroup]="leaderboardForm">
+                    <label for="name">Nome</label>
+                    <input id="name" class=" form-control" formControlName="name" type="text" required> 
+                    <button class="btn btn-primary mt-3" type="submit" (click)="saveLeaderboard(leaderboardForm.value.name)">Salvar</button>
+                </form>
+            </div>
+        </div>
+        <div class="container col-md-6">
+                <h5 class="text-center">Classificação</h5>
+                <table  class="table text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Posição</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Pontuação</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let records of leaderboard; let i = index">
+                        <tr>
+                            <td> {{i + 1}}</td>
+                            <td> {{records.name}}</td>
+                            <td>{{records.wordsPerMinute}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div> 
     </div>
+    
 </div>
