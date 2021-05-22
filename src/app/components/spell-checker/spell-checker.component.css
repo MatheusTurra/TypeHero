@@ -1,6 +1,88 @@
-#text-container {
-    border: 1px solid gold;
+#main {
+    margin-right: 90px;
 }
+
+#text-container {
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid #131515;
+    background-color: rgba(131, 131, 131, 0.07);
+    color: #f2f2f2;
+    font-size: 21px;
+    font-weight: bolder;
+    width: 86.4%;    
+}
+
+#user-input {
+    width: 105%;
+    background-color: rgba(29, 27, 27, 0.631);
+    border:2.5px solid rgb(73, 73, 73);
+    border-radius:4px;
+    margin-top: 0px;
+    height: 63px;
+    margin-left: -15px;
+    outline:none;
+    padding-left: 10px;
+    box-sizing:border-box;
+    transition:.3s;
+    font-size: 30px;
+    color: whitesmoke;
+}
+
+#user-input:focus {
+    border-color:dodgerBlue;
+    box-shadow:0 0 7px 0 dodgerBlue;
+}
+
+#realtime-feedback {
+    background-color: rgba(131, 131, 131, 0.138);
+    border-radius: 4%;
+    padding-top: 22px;
+    text-align: center;
+}
+
+
+#timer {
+    border:2.5px solid rgba(36, 35, 35, 0.905);
+    background-color: rgba(131, 131, 131, 0.138);
+    border-radius: 6%;
+}
+
+#timer .text-center {
+    margin-top: 35%;
+    font-weight: bold;
+}
+
+
+#reset {
+    height: 66px;
+}
+
+#reset button {
+    background-color: rgba(131, 131, 131, 0.138);
+    height: 66px;
+}
+
+#reset button:hover {
+    background-color: #0270bc;
+    transition: 2s;
+}
+
+#reset-icon {
+    width: 30px;
+}
+
+.list-report li {
+    background-color: rgba(131, 131, 131, 0.138);
+}
+
+.table {
+    color: white;
+}
+
+#end-report {
+    width: 86.5%;
+}
+
 
 .timeEnded {
     pointer-events: none;
@@ -13,22 +95,24 @@
 }
 
 .current {
-    border: 1px solid black;
-    color: black;
+    background-color: rgba(255, 255, 255, 0.138);
+    color: white;
+    width: auto;
 }
 
 .text {
-    color: black
+    color: white
 }
 
 .incorrect {
-    color: red;
+    color: #e71d36;
 }
 .correctWord {
-    color: green;
+    color: #0cce6b;
 }
 
 .incorrectSpell {
-    border: 1px solid black;
-    color: red;
+    background-color: rgba(255, 255, 255, 0.138);
+    color: #e71d36;
 }
+

@@ -16,7 +16,7 @@ module.exports = {
             ]
         });
 
-        res.json({leaderboard});
+        res.json([{"values": leaderboard}]);
     },
     
     async removeFromLeaderboard(req, res) {

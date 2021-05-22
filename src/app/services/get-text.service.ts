@@ -14,4 +14,16 @@ export class GetTextService {
   getText() {
     return this.http.get(this.apiUrl + "text");
   }
+
+  insertLeaderboard(name, wordsPerMinute) {
+    const toJson = {
+      "name": name, 
+      "wordsPerMinute": wordsPerMinute
+    }    
+    return this.http.post(this.apiUrl + "leaderboards", toJson).subscribe();
+  }
+
+  showAllLeaderboard() {
+    return this.http.get(this.apiUrl + "leaderboards");
+  }
 }

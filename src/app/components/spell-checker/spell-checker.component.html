@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 <div id="text-container">
     <span class="text-word" *ngFor="let word of splittedText; let i = index">
         <span #testWord 
@@ -26,10 +27,88 @@ Keystrokes {{wordLength}} / {{correctWords}} / {{incorrectWords}}
 <br>
 {{wpmResult}}
 <br>
+=======
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
 
-<button (click)="timerReset()">Reset timer</button>
-{{minutes}} : {{seconds}}
+<div id="main" class="container">
+    <div class="row" id="text-container">
+        <span class="text-word" *ngFor="let word of splittedText; let i = index">
+            <span #testWord
+                [ngClass]="{'current': i === phraseIndex,
+                'incorrectSpell': isCorrect === false && i === phraseIndex,
+                'current': isCorrect && i === phraseIndex}">
+                {{splittedText[i]}}
+            </span>
+        </span>    
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6 mr-3">
+            <form [formGroup]="inputForm">
+                <input class="" id="user-input" 
+                    formControlName="inputText"
+                    #spellCheckerInput 
+                    type="input"
+                    autocomplete="off"
+                    name="inputText" 
+                    (keyup)="spellChecker(inputForm.value.inputText, $event.key)">
+            </form>
+        </div>
+        <div id="realtime-feedback" class="col-md-2 mr-3">
+            <!-- Keystrokes {{wordLength}} / {{correctWords}} / {{incorrectWords}} -->
+            <div id="words">
+                <p>Letras certas : {{wordLength}}</p>
+            </div>            
+        </div>
+        <div id="timer" class="col-md-1">
+            <div class="text-center">
+                {{minutes}} : {{seconds}}                    
+            </div>
+        </div>
+>>>>>>> angular
 
-<p>
-     Teste de troca de classe css  {{isCorrect}}
-</p>
+        <div class="col-md-1" id="reset" >
+            <button class="mb-5 btn" (click)="gameReset()">
+                <img id="reset-icon" src="../../../assets/reset.svg"/>
+            </button>
+        </div>
+    </div>
+    <div id="end-report" class="mt-4 mb-5 container row">
+        <div  *ngIf="testIsOver === true" class="container col-md-6">
+            <h4 class="text-center">Você digitou {{wpmResult}} palavras por segundo</h4>
+            <ul class="list-unstyled list-group list-report">
+                <li class="list-group-item">Palavras certas {{correctWords}}</li>
+                <li class="list-group-item">Palavras incorretas {{incorrectWords}}</li>
+                <li class="list-group-item">Letras corretas digitadas {{wordLength}} </li>
+            </ul>
+            <div class="mt-4 form-group">
+                <h5>Deseja salvar o seu recorde?</h5>
+                <form class="mt-4" [formGroup]="leaderboardForm">
+                    <label for="name">Nome</label>
+                    <input id="name" class=" form-control" formControlName="name" type="text" required> 
+                    <button class="btn btn-primary mt-3" type="submit" (click)="saveLeaderboard(leaderboardForm.value.name)">Salvar</button>
+                </form>
+            </div>
+        </div>
+        <div class="container col-md-6">
+                <h5 class="text-center">Classificação</h5>
+                <table  class="table text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Posição</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Pontuação</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let records of leaderboard; let i = index">
+                        <tr>
+                            <td> {{i + 1}}</td>
+                            <td> {{records.name}}</td>
+                            <td>{{records.wordsPerMinute}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div> 
+    </div>
+    
+</div>

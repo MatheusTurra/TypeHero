@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import  { GetTextService } from "../../services/get-text.service";
 
 @Component({
@@ -13,7 +13,10 @@ export class SpellCheckerComponent implements OnInit {
   @ViewChildren("testWord") testWord: any;
 
   public splittedText: any;
-  public inputData:  FormGroup;
+
+  public inputForm:  FormGroup;
+  public leaderboardForm: FormGroup;
+  public leaderboard: any;
   
   public wpmResult: number
   private counter: number;
@@ -28,7 +31,11 @@ export class SpellCheckerComponent implements OnInit {
   public minutes: number;
   public seconds: number;
   public chronometer: number;
+  public testIsOver: boolean;
 
+  public gameIsReseted: boolean;
+  
+  private leaderboardWasSaved: boolean;
   private startWasClicked: Boolean;
   private timerInterval: any;
   
@@ -36,7 +43,7 @@ export class SpellCheckerComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private getTextService: GetTextService) { }
 
   ngOnInit(): void {
-    this.splittedText = this.getApiText();
+    this.getApiText();
 
     this.phraseIndex = 0;
 
@@ -50,29 +57,45 @@ export class SpellCheckerComponent implements OnInit {
     
     this.minutes = 1;
     this.seconds = 0;
+    this.testIsOver = false;
+    this.gameIsReseted = false;
 
     this.startWasClicked = true;
+    this.leaderboardWasSaved = false;
+    this.showAllLeaderboards();
 
-    this.inputData = this.formBuilder.group({
-      inputText: []
+    this.inputForm = this.formBuilder.group({
+      inputText: [],
+    });
+
+    this.leaderboardForm = this.formBuilder.group({
+      name: ["", [Validators.required]]
     });
   } 
 
   getApiText() {
-    this.getTextService.getText().subscribe( data => {
-      this.splittedText = data[0].text.split(" ");
+     this.getTextService.getText().subscribe( data => {
+        this.splittedText = data[0].text.split(" ");
     });
+  }
+
+
+  showAllLeaderboards() {
+    this.getTextService.showAllLeaderboard().subscribe(data => {
+      this.leaderboard = data[0].values;
+    });    
   }
   
   spellChecker(text, eventKey) { 
     if (text === null) text = "";
-
-    this.timerStart();
-
+    
     let checkedWord = text;
     
+    this.gameIsReseted = false;
+
     checkedWord = checkedWord.replace(/\s/g, "");
 
+    this.timerStart();
     this.realTimeSpellChecker(eventKey)
 
     if (eventKey === " " && checkedWord === this.splittedText[this.phraseIndex]) {
@@ -172,9 +195,10 @@ export class SpellCheckerComponent implements OnInit {
 
           this.spellCheckerValue.nativeElement.className = "timeEnded";
           this.spellCheckerValue.nativeElement.value = null;
-          this.inputData.disable();
+          this.inputForm.disable();
 
           this.calculateWpm(this.wordLength);
+          this.testIsOver = true;
           this.timerStop();
         }
         
@@ -199,7 +223,7 @@ export class SpellCheckerComponent implements OnInit {
     this.seconds = 0;
 
     this.spellCheckerValue.nativeElement.className = null;
-    this.inputData.enable();
+    this.inputForm.enable();
 
     this.timerStop();
   }
@@ -208,4 +232,27 @@ export class SpellCheckerComponent implements OnInit {
     clearInterval(this.timerInterval);
   }
 
+  gameReset() {
+    this.wpmResult = 0;
+    this.incorrectWords = 0;
+    this.correctWords = 0;
+    this.phraseIndex = 0;
+    this.wordLength = 0;
+
+    this.splittedText = []
+    this.getApiText();
+    this.timerReset();
+
+    this.gameIsReseted = true;
+    this.testIsOver = false;
+    this.leaderboardWasSaved = false;
+  }
+
+  saveLeaderboard(name) {
+    if(name.length > 0 && !this.leaderboardWasSaved) {
+      this.getTextService.insertLeaderboard(name, this.wpmResult);
+      this.showAllLeaderboards();
+      this.leaderboardWasSaved = true;
+    }
+  }
 }
