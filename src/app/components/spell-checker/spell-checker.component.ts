@@ -20,7 +20,6 @@ export class SpellCheckerComponent implements OnInit {
   
   public wpmResult: number
   private counter: number;
-  private inputCounter: number;
   
   public correctWords: number;
   public incorrectWords: number;
@@ -58,7 +57,6 @@ export class SpellCheckerComponent implements OnInit {
 
     this.wpmResult = 0
     this.counter = 0;
-    this.inputCounter = 0;
     
     this.minutes = 1;
     this.seconds = 0;
@@ -80,7 +78,7 @@ export class SpellCheckerComponent implements OnInit {
 
   getApiText() {
      this.getTextService.getText().subscribe( data => {
-        this.splittedText = data[1].text.split(" ");
+        this.splittedText = data[0].text.split(" ");
     });
   }
 
@@ -104,25 +102,23 @@ export class SpellCheckerComponent implements OnInit {
 
     if (eventKey === " " && checkedWord === this.splittedText[this.phraseIndex]) {
       this.wordLength += this.splittedText[this.phraseIndex].length - 1;
-      this.totalWords += this.wordLength;
+      this.totalWords += this.splittedText[this.phraseIndex].length - 1;
       this.phraseIndex++;
       this.correctWords++;
       this.spellCheckerValue.nativeElement.value = null;
       this.counter = 0;
-      this.inputCounter = 0;
       this.isCorrect = true;
 
       this.changeWordToCorrectClass();
     } 
     else if (eventKey === " " && checkedWord !== this.splittedText[this.phraseIndex]) {            
       if (checkedWord !== "") {
-        this.totalWords += this.wordLength;
+        this.totalWords += this.splittedText[this.phraseIndex].length -1;
         this.phraseIndex++;
         this.spellCheckerValue.nativeElement.value = null;
         this.incorrectWords++;
         this.isCorrect = true;
         this.counter = 0;
-        this.inputCounter = 0;
 
 
         this.changeWordToIncorrectClass();
@@ -135,42 +131,20 @@ export class SpellCheckerComponent implements OnInit {
   realTimeSpellChecker(event, eventKey) {
     let textSplitInLetters = this.splittedText[this.phraseIndex].split("");
     let wordLenght = this.splittedText[this.phraseIndex].length - 1;
-    // let formattedText = this.formatText(textSplitInLetters[this.counter]);
     let userInput = event.split("");
     if (this.counter > wordLenght) {
       this.counter = wordLenght;
-      // formattedText = this.formatText(textSplitInLetters[this.counter]);
     }
-    // if (formattedUserInput === "backspace") {
-    //  this.isCorrect = true;
-    // }
 
     if (event !== "" && event !== " " && eventKey.length <= 1) {
-      console.log(textSplitInLetters[this.counter], "Texto", userInput[this.inputCounter] , "INPUUTUTE", this.inputCounter)
-      if (textSplitInLetters[this.counter] === userInput[this.inputCounter]) {
+      if (textSplitInLetters[this.counter] === userInput[this.counter]) {
         this.counter++;
-        this.inputCounter++;
         this.isCorrect = true;
       } else {
         this.isCorrect = false;
       }
     }
-
-    // console.log("XAMA")
-
-    // console.log(textSplitInLetters[this.counter])
-    // console.log(this.counter)
-    // if (formattedUserInput.length <= 1 && event !== " ") {
-      // console.log("usuário ->", formattedUserInput, "TExto ->", formattedText, this.counter)
-      // if (formattedUserInput === formattedText) {
-      // this.isCorrect = true;
-      // this.counter++;
-      // this.inputCounter++;
-      // } else {
-      // this.isCorrect = false;
-    // }
-  // }
-}
+  }
 
   formatText(text) {
     if (text === undefined) text = "";
@@ -266,7 +240,6 @@ export class SpellCheckerComponent implements OnInit {
     this.phraseIndex = 0;
     this.wordLength = 0;
     this.counter = 0;
-    this.inputCounter = 0;
     this.isCorrect = true;
 
     this.splittedText = []
