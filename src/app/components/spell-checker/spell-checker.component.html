@@ -1,33 +1,4 @@
 
-<<<<<<< HEAD
-<div id="text-container">
-    <span class="text-word" *ngFor="let word of splittedText; let i = index">
-        <span #testWord 
-            [ngClass]="{'current': i === phraseIndex,
-            'incorrectSpell': isCorrect === false && i === phraseIndex,
-            'current': isCorrect && i === phraseIndex}">
-            {{splittedText[i]}}
-        </span>
-    </span>    
-</div>
-
-<form [formGroup]="inputData">
-    <input formControlName="inputText"
-        #spellCheckerInput 
-        type="text"
-        autocomplete="off"
-        name="inputText" 
-        (keyup)="spellChecker(inputData.value.inputText, $event.key)">
-</form>
-{{inputData.value.inputText}}
-
-<br>
-<br>
-Keystrokes {{wordLength}} / {{correctWords}} / {{incorrectWords}}
-<br>
-{{wpmResult}}
-<br>
-=======
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
 
@@ -65,7 +36,6 @@ Keystrokes {{wordLength}} / {{correctWords}} / {{incorrectWords}}
                 {{minutes}} : {{seconds}}                    
             </div>
         </div>
->>>>>>> angular
 
         <div class="col-md-1" id="reset" >
             <button class="mb-5 btn" (click)="gameReset()">
@@ -75,11 +45,12 @@ Keystrokes {{wordLength}} / {{correctWords}} / {{incorrectWords}}
     </div>
     <div id="end-report" class="mt-4 mb-5 container row">
         <div  *ngIf="testIsOver === true" class="container col-md-6">
-            <h4 class="text-center">Você digitou {{wpmResult}} palavras por segundo</h4>
+            <h4 class="text-center">Você digitou {{wpmResult}} palavras por minuto</h4>
             <ul class="list-unstyled list-group list-report">
+                <li class="list-group-item">Total de letras digitadas {{totalWords}} </li>
+                <li class="list-group-item">Letras corretas digitadas {{wordLength}} </li>
                 <li class="list-group-item">Palavras certas {{correctWords}}</li>
                 <li class="list-group-item">Palavras incorretas {{incorrectWords}}</li>
-                <li class="list-group-item">Letras corretas digitadas {{wordLength}} </li>
             </ul>
             <div class="mt-4 form-group">
                 <h5>Deseja salvar o seu recorde?</h5>

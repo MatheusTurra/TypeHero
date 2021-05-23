@@ -8,6 +8,13 @@
     color: #fff
 }
 
+#title-container {
+    margin-left: 38%;
+}
+#logo {
+    width: 50px;
+}
+
 #navbar {
     background-color: #131515;
     border-bottom: 5px solid #0270bc;
