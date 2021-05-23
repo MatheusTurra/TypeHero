@@ -20,6 +20,7 @@ export class SpellCheckerComponent implements OnInit {
   
   public wpmResult: number
   private counter: number;
+  private inputCounter: number;
   
   public correctWords: number;
   public incorrectWords: number;
@@ -57,6 +58,7 @@ export class SpellCheckerComponent implements OnInit {
 
     this.wpmResult = 0
     this.counter = 0;
+    this.inputCounter = 0;
     
     this.minutes = 1;
     this.seconds = 0;
@@ -107,6 +109,7 @@ export class SpellCheckerComponent implements OnInit {
       this.correctWords++;
       this.spellCheckerValue.nativeElement.value = null;
       this.counter = 0;
+      this.inputCounter = 0;
       this.isCorrect = true;
 
       this.changeWordToCorrectClass();
@@ -119,6 +122,7 @@ export class SpellCheckerComponent implements OnInit {
         this.incorrectWords++;
         this.isCorrect = true;
         this.counter = 0;
+        this.inputCounter = 0;
 
 
         this.changeWordToIncorrectClass();
@@ -130,17 +134,26 @@ export class SpellCheckerComponent implements OnInit {
 
   realTimeSpellChecker(event, eventKey) {
     let textSplitInLetters = this.splittedText[this.phraseIndex].split("");
-    let wordLenght = this.splittedText[this.phraseIndex].length - 1;
     let userInput = event.split("");
-    if (this.counter > wordLenght) {
-      this.counter = wordLenght;
+
+    if (userInput[this.inputCounter] === undefined) {
+      this.counter = 0;
+      this.inputCounter = 0;
     }
+    
+    if (eventKey === "Backspace" && this.counter > 0) {
+      this.inputCounter--
+      this.counter--;
+    };
 
     if (event !== "" && event !== " " && eventKey.length <= 1) {
-      if (textSplitInLetters[this.counter] === userInput[this.counter]) {
+      if (textSplitInLetters[this.counter] === userInput[this.inputCounter]) {
         this.counter++;
+        this.inputCounter++;
         this.isCorrect = true;
       } else {
+        this.counter++;
+        this.inputCounter++;
         this.isCorrect = false;
       }
     }
@@ -240,6 +253,8 @@ export class SpellCheckerComponent implements OnInit {
     this.phraseIndex = 0;
     this.wordLength = 0;
     this.counter = 0;
+    this.inputCounter = 0;
+
     this.isCorrect = true;
 
     this.splittedText = []
