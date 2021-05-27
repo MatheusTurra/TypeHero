@@ -135,25 +135,22 @@ export class SpellCheckerComponent implements OnInit {
   realTimeSpellChecker(event, eventKey) {
     let textSplitInLetters = this.splittedText[this.phraseIndex].split("");
     let userInput = event.split("");
+    let wordLength = this.splittedText[this.phraseIndex].length - 1
 
-    if (userInput[this.inputCounter] === undefined) {
-      this.counter = 0;
-      this.inputCounter = 0;
+    if (textSplitInLetters[this.counter] === undefined) {
+        this.counter = wordLength;
     }
     
-    if (eventKey === "Backspace" && this.counter > 0) {
-      this.inputCounter--
-      this.counter--;
+    if (eventKey === "Backspace") {
+      this.isCorrect = true;
     };
-
-    if (event !== "" && event !== " " && eventKey.length <= 1) {
-      if (textSplitInLetters[this.counter] === userInput[this.inputCounter]) {
+  
+    if (event !== "" && userInput[this.inputCounter] !== " " && eventKey.length <= 1) {
+      if (this.inputCounter <= wordLength && textSplitInLetters[this.counter] === userInput[this.inputCounter]) {        
         this.counter++;
         this.inputCounter++;
         this.isCorrect = true;
       } else {
-        this.counter++;
-        this.inputCounter++;
         this.isCorrect = false;
       }
     }
