@@ -4,7 +4,7 @@
             <font size="6">Type Hero </font>
         </strong>
     </br>
-    <font size="3">
+    <font size="2" align="center">
         Projeto em desenvolvimento
     </font>
 </h1>
