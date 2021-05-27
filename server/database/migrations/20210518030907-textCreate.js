@@ -13,6 +13,11 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false
       },
+      title:
+      {
+        type: Sequelize.TEXT,
+        allowNull: false
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false

@@ -80,7 +80,7 @@ export class SpellCheckerComponent implements OnInit {
 
   getApiText() {
      this.getTextService.getText().subscribe( data => {
-        this.splittedText = data[0].text.split(" ");
+        this.splittedText = data[1].text.split(" ");
     });
   }
 
