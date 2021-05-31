@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "migrate": "npx sequelize db:migrate",
+    "start": "(ng serve) & npm run dev",
     "dev": "nodemon server/server.js",
     "build": "ng build",
     "test": "ng test",
