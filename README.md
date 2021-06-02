@@ -74,6 +74,8 @@ O projeto **Type Hero** tem o intuito de testar a sua velocidade de digitação 
 
   # Executa a aplicação
   npm run start
+  
+  # Acesse http://localhost:4200/ no Google Chrome
 ```
 <hr/>
 <h4 align="center">Desenvolvido por :hurtrealbad: Matheus Farisco Turra</h4>
