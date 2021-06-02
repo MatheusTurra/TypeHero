@@ -23,8 +23,6 @@ O projeto **Type Hero** tem o intuito de testar a sua velocidade de digitação 
 
 ## Funcionalidades ⚙️
 
-<br>
-
 * Prontas ⚡
   * Criar recorde no banco de dados.
   * Exibir texto.
@@ -50,8 +48,6 @@ O projeto **Type Hero** tem o intuito de testar a sua velocidade de digitação 
 <br>
 
 ## Como testar o projeto :electric_plug:
-
-<br>
 
 ### Pré requisitos
 * [Node JS](https://nodejs.org/en/)
