@@ -14,6 +14,7 @@
 <h6 align="center">* Estado atual do projeto</h6>
 </br>
 </br>
+
 ## Sobre o projeto 📝
 O projeto **Type Hero** tem o intuito de testar a sua velocidade de digitação em uma certa quantidade de tempo. O teste consiste na exibição de um texto real e 1 minuto para conclui-lo, terminado o tempo o teste se encerra e será mostrado o seu resultado, onde também é possível salva-lo em uma tabela de classificação, o resultado representa a quantidade de palavras digitadas por minuto (WPM em inglês).
 
