@@ -10,8 +10,7 @@
 <br/>
 
 <img src="./src/assets/demo.gif">
-<h5 align="center">Imagem acelerada</h5>
-<h6 align="center">* Estado atual do projeto</h6>
+<h6 align="center"> Estado atual do projeto - <strong>Imagem acelerada</strong></h6>
 </br>
 </br>
 
