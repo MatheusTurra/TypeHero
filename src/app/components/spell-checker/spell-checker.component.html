@@ -3,7 +3,7 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
 
 <div id="main" class="container">
-    <div class="row" id="text-container">
+    <div class="row" id="text-container" class="container">
         <span class="text-word" *ngFor="let word of splittedText; let i = index">
             <span #testWord
                 [ngClass]="{'current': i === phraseIndex,
@@ -13,8 +13,8 @@
             </span>
         </span>    
     </div>
-    <div class="row mt-2">
-        <div class="col-md-6 mr-3">
+    <div id="input-container" class="container row mt-2">
+        <div class="col-md-7 mr-4">
             <form [formGroup]="inputForm">
                 <input class="" id="user-input" 
                     formControlName="inputText"
@@ -26,7 +26,6 @@
             </form>
         </div>
         <div id="realtime-feedback" class="col-md-2 mr-3">
-            <!-- Keystrokes {{wordLength}} / {{correctWords}} / {{incorrectWords}} -->
             <div id="words">
                 <p>Letras certas : {{wordLength}}</p>
             </div>            
@@ -36,7 +35,6 @@
                 {{minutes}} : {{seconds}}                    
             </div>
         </div>
-
         <div class="col-md-1" id="reset" >
             <button class="mb-5 btn" (click)="gameReset()">
                 <img id="reset-icon" src="../../../assets/reset.svg"/>

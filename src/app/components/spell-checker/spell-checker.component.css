@@ -12,6 +12,11 @@
     width: 86.4%;    
 }
 
+#input-container {
+    width: 90%;
+    margin-left: 55px;
+}
+
 #user-input {
     width: 105%;
     background-color: rgba(29, 27, 27, 0.631);
@@ -19,7 +24,7 @@
     border-radius:4px;
     margin-top: 0px;
     height: 63px;
-    margin-left: -15px;
+    margin-left: -11px;
     outline:none;
     padding-left: 10px;
     box-sizing:border-box;
@@ -35,14 +40,21 @@
 
 #realtime-feedback {
     background-color: rgba(131, 131, 131, 0.138);
+    width: 160px;
     border-radius: 4%;
     padding-top: 22px;
+    padding-right: 170px;
     text-align: center;
 }
 
+#words {
+    width: 160px;
+    display: inline-block;
+}
 
 #timer {
     border:2.5px solid rgba(36, 35, 35, 0.905);
+    width: 30px;
     background-color: rgba(131, 131, 131, 0.138);
     border-radius: 6%;
 }
@@ -50,16 +62,21 @@
 #timer .text-center {
     margin-top: 35%;
     font-weight: bold;
+    border: 1px solid teal;
 }
 
 
 #reset {
     height: 66px;
+    width: 100px;
 }
 
+
 #reset button {
+    border:2.5px solid rgba(36, 35, 35, 0.905);
     background-color: rgba(131, 131, 131, 0.138);
     height: 66px;
+    width: 80px;
 }
 
 #reset button:hover {
@@ -80,6 +97,8 @@
 }
 
 #end-report {
+    margin-left: 70px;
+    margin-top: 30px;
     width: 86.5%;
 }
 
@@ -89,7 +108,6 @@
     background-color: brown;
 }
 .text-word {
-    /* border: 1px solid red; */
     margin-left: 5px;
     display: inline-block;
 }
